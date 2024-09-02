@@ -3,6 +3,7 @@ import 'package:user_application/styles/colors.dart';
 import 'package:user_application/widgets/Button.dart';
 import 'package:user_application/widgets/back_button.dart';
 import 'package:user_application/widgets/input_field.dart';
+import 'package:user_application/widgets/select_field.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -30,21 +31,30 @@ class _MyAppState extends State<MyApp> {
         ),
         backgroundColor: primaryColor,
       ),
-      body: const Padding(
-        padding: EdgeInsets.all(20),
+      body: Padding(
+        padding: const EdgeInsets.all(20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            DripBackButton(),
-            SizedBox(height: 25),
-            Button(text: "Primary Button"),
-            SizedBox(height: 25),
-            Button(text: "Secondary Button", secondary: true),
-            SizedBox(height: 25),
-            InputField(
+            const DripBackButton(),
+            const SizedBox(height: 25),
+            const Button(text: "Primary Button"),
+            const SizedBox(height: 25),
+            const Button(text: "Secondary Button", secondary: true),
+            const SizedBox(height: 25),
+            const InputField(
               label: "Input Label",
               keyboardType: TextInputType.text,
             ),
+            const SizedBox(height: 25),
+            SelectField(
+                label: "Select Option",
+                options: dropdownOptions,
+                onChanged: (newValue) {
+                  setState(() {
+                    selectedValue = newValue;
+                  });
+                }),
           ],
         ),
       ),
