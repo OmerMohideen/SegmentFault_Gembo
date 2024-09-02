@@ -3,6 +3,7 @@ import 'package:user_application/styles/colors.dart';
 import 'package:user_application/widgets/Button.dart';
 import 'package:user_application/widgets/back_button.dart';
 import 'package:user_application/widgets/input_field.dart';
+import 'package:user_application/widgets/radio_button.dart';
 import 'package:user_application/widgets/select_field.dart';
 
 void main() {
@@ -19,6 +20,8 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   String? selectedValue;
+  bool isSelected1 = true;
+  bool isSelected2 = false;
   final List<String> dropdownOptions = ['Option 1', 'Option 2', 'Option 3'];
 
   @override
@@ -55,6 +58,30 @@ class _MyAppState extends State<MyApp> {
                     selectedValue = newValue;
                   });
                 }),
+            const SizedBox(
+              height: 25,
+            ),
+            RadioButton(
+              label: "Radio option here...",
+              selected: isSelected1,
+              onChanged: (value) {
+                setState(() {
+                  isSelected1 = true;
+                  isSelected2 = false;
+                });
+              },
+            ),
+            const SizedBox(height: 16),
+            RadioButton(
+              label: "Radio option here...",
+              selected: isSelected2,
+              onChanged: (value) {
+                setState(() {
+                  isSelected2 = true;
+                  isSelected1 = false;
+                });
+              },
+            ),
           ],
         ),
       ),
