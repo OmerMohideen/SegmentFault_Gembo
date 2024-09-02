@@ -21,15 +21,15 @@ class SelectField extends StatelessWidget {
     return DropdownButtonFormField<String>(
       decoration: InputDecoration(
         labelText: label,
-        labelStyle: paragraph2Style,
+        labelStyle: paragraph1Style.copyWith(color: Colors.black),
         enabledBorder: const UnderlineInputBorder(
-          borderSide: BorderSide(color: Colors.black, width: 1.5),
+          borderSide: BorderSide(color: Colors.black, width: 1),
         ),
         focusedBorder: const UnderlineInputBorder(
-          borderSide: BorderSide(color: Colors.black, width: 1.5),
+          borderSide: BorderSide(color: Colors.black, width: 1),
         ),
         border: const UnderlineInputBorder(
-          borderSide: BorderSide(color: Colors.black, width: 1.5),
+          borderSide: BorderSide(color: Colors.black, width: 1),
         ),
       ),
       icon: SvgPicture.asset('assets/icons/arrow_down.svg'),
@@ -37,7 +37,10 @@ class SelectField extends StatelessWidget {
       items: options.map((String option) {
         return DropdownMenuItem<String>(
           value: option,
-          child: Text(option),
+          child: Text(
+            option,
+            style: paragraph2Style,
+          ),
         );
       }).toList(),
       onChanged: onChanged,

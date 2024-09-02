@@ -27,15 +27,15 @@ class InputField extends StatelessWidget {
       obscureText: obscureText,
       decoration: InputDecoration(
         labelText: label,
-        labelStyle: paragraph1Style,
+        labelStyle: paragraph1Style.copyWith(color: Colors.black),
         enabledBorder: const UnderlineInputBorder(
-          borderSide: BorderSide(color: Colors.black, width: 1.5),
+          borderSide: BorderSide(color: Colors.black, width: 1),
         ),
         focusedBorder: const UnderlineInputBorder(
-          borderSide: BorderSide(color: Colors.black, width: 1.5),
+          borderSide: BorderSide(color: Colors.black, width: 1),
         ),
         border: const UnderlineInputBorder(
-          borderSide: BorderSide(color: Colors.black, width: 1.5),
+          borderSide: BorderSide(color: Colors.black, width: 1),
         ),
       ),
       onChanged: onChanged,
