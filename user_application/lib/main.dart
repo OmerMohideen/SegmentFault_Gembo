@@ -3,6 +3,7 @@ import 'package:user_application/styles/colors.dart';
 import 'package:user_application/widgets/Button.dart';
 import 'package:user_application/widgets/back_button.dart';
 import 'package:user_application/widgets/input_field.dart';
+import 'package:user_application/widgets/progress.dart';
 import 'package:user_application/widgets/radio_button.dart';
 import 'package:user_application/widgets/select_field.dart';
 
@@ -58,9 +59,7 @@ class _MyAppState extends State<MyApp> {
                     selectedValue = newValue;
                   });
                 }),
-            const SizedBox(
-              height: 25,
-            ),
+            const SizedBox(height: 25),
             RadioButton(
               label: "Radio option here...",
               selected: isSelected1,
@@ -81,6 +80,12 @@ class _MyAppState extends State<MyApp> {
                   isSelected1 = false;
                 });
               },
+            ),
+            const SizedBox(height: 25),
+            const ProgressBar(
+              progressCount: 1,
+              sizeCount: 4,
+              size: 92,
             ),
           ],
         ),
