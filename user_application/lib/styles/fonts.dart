@@ -6,6 +6,11 @@ TextStyle displayStyle = GoogleFonts.inter(
   fontWeight: FontWeight.w500,
 );
 
+TextStyle logoStyle = GoogleFonts.jua(
+  fontSize: 42,
+  fontWeight: FontWeight.normal,
+);
+
 TextStyle heading1Style = GoogleFonts.inter(
   fontSize: 28,
   fontWeight: FontWeight.w500,
