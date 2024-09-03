@@ -5,3 +5,4 @@ const Color primarySubtleColor = Color(0xffEAF5ED);
 const Color secondaryColor = Color(0xffF46B3A);
 const Color secondarySubtleColor = Color(0xffFDE2D8);
 const Color tertiaryColor = Color(0xffF4ECD9);
+const Color grayColor = Color(0xff8A8A8A);
