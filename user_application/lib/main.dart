@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:user_application/styles/colors.dart';
 import 'package:user_application/widgets/Button.dart';
 import 'package:user_application/widgets/back_button.dart';
+import 'package:user_application/widgets/file_picker.dart';
 import 'package:user_application/widgets/input_field.dart';
 import 'package:user_application/widgets/progress.dart';
 import 'package:user_application/widgets/radio_button.dart';
@@ -35,7 +38,7 @@ class _MyAppState extends State<MyApp> {
         ),
         backgroundColor: primaryColor,
       ),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -87,6 +90,16 @@ class _MyAppState extends State<MyApp> {
               sizeCount: 4,
               size: 92,
             ),
+            const SizedBox(height: 25),
+            FileSelect(
+              title: 'Passport Bio page',
+              maxFileSize: 'Max file size: 2 MB',
+              onFilePicked: (File? file) {
+                if (file != null) {
+                  print('File picked: ${file.path}');
+                }
+              },
+            )
           ],
         ),
       ),
