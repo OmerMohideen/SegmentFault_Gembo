@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:user_application/pages/test_page.dart';
+import 'package:user_application/pages/visa/passport_documents.dart';
 import 'package:user_application/styles/fonts.dart';
 import 'package:user_application/widgets/Button.dart';
 import 'package:user_application/widgets/back_button.dart';
@@ -47,7 +47,8 @@ class _EligibilityCriteriaPageState extends State<EligibilityCriteriaPage> {
                 print(_visa_type),
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => new TestPage()),
+                  MaterialPageRoute(
+                      builder: (context) => new PassportDocuments()),
                 )
               },
             )
