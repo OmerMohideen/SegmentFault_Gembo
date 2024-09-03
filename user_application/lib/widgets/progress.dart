@@ -17,13 +17,13 @@ class ProgressBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 10,
-      width: this.sizeCount * this.size.toDouble(),
+      width: sizeCount * size.toDouble(),
       decoration: const BoxDecoration(color: primarySubtleColor),
       child: Row(
         children: List.generate(
-          this.progressCount,
+          progressCount,
           (index) => Container(
-            width: this.size.toDouble(),
+            width: size.toDouble(),
             height: 10,
             decoration: const BoxDecoration(
               gradient: LinearGradient(

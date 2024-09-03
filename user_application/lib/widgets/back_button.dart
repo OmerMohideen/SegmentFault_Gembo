@@ -9,7 +9,7 @@ class DripBackButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: this.onTap,
+      onTap: onTap,
       child: Stack(
         alignment: Alignment.center,
         children: <Widget>[
