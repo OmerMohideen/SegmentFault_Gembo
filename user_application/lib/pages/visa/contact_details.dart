@@ -2,7 +2,6 @@ import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:user_application/pages/test_page.dart';
 import 'package:user_application/pages/visa/additional_details.dart';
 import 'package:user_application/styles/fonts.dart';
 import 'package:user_application/utils/form_handler.dart';
