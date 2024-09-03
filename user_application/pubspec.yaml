@@ -38,6 +38,7 @@ dependencies:
     flutter_svg: ^2.0.10+1
     file_picker: ^8.1.2
     country_picker: ^2.0.26
+    provider: ^6.1.2
 
 dev_dependencies:
     flutter_test:

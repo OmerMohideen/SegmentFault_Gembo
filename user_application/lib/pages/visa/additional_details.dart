@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'package:user_application/pages/test_page.dart';
 import 'package:user_application/styles/fonts.dart';
+import 'package:user_application/utils/form_handler.dart';
 import 'package:user_application/widgets/Button.dart';
 import 'package:user_application/widgets/back_button.dart';
 import 'package:user_application/widgets/progress.dart';
@@ -16,13 +18,11 @@ class AdditionalDetails extends StatefulWidget {
 }
 
 class _AdditionalDetailsState extends State<AdditionalDetails> {
-  String? _date_of_arrival;
-  String? _port_entry;
-  String? _resedential_address;
-  String? _date_of_departure;
 
   @override
   Widget build(BuildContext context) {
+    final formHandler = Provider.of<FormHandler>(context);
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
@@ -35,7 +35,7 @@ class _AdditionalDetailsState extends State<AdditionalDetails> {
             const SizedBox(height: 50),
             _progress(),
             const SizedBox(height: 50),
-            _fields(),
+            _fields(formHandler),
             const SizedBox(height: 50),
             Button(
               text: "Next",
@@ -88,11 +88,17 @@ class _AdditionalDetailsState extends State<AdditionalDetails> {
     );
   }
 
-  Column _fields() {
+  Column _fields(FormHandler formHandler) {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       InputField(
         label: "Date of arrival *",
         keyboardType: TextInputType.datetime,
+        onChanged: (newValue) {
+          setState(() {
+            formHandler.setFieldValue("date_of_arrival", newValue);
+          });
+        },
+        initialValue: formHandler.getFieldValue("date_of_arrival"),
       ),
       const SizedBox(height: 30),
       SelectField(
@@ -100,19 +106,32 @@ class _AdditionalDetailsState extends State<AdditionalDetails> {
         options: ["Colombo"],
         onChanged: (newValue) {
           setState(() {
-            _port_entry = newValue!;
+            formHandler.setFieldValue("port_entry", newValue);
           });
         },
+        value: formHandler.getFieldValue("port_entry"),
       ),
       const SizedBox(height: 30),
       InputField(
-        label: "Resedential address *",
+        label: "Residential address *",
         keyboardType: TextInputType.text,
+        onChanged: (newValue) {
+          setState(() {
+            formHandler.setFieldValue("Residential_address", newValue);
+          });
+        },
+        initialValue: formHandler.getFieldValue("Residential_address"),
       ),
       const SizedBox(height: 30),
       InputField(
         label: "Date of departure *",
         keyboardType: TextInputType.datetime,
+        onChanged: (newValue) {
+          setState(() {
+            formHandler.setFieldValue("date_of_departure", newValue);
+          });
+        },
+        initialValue: formHandler.getFieldValue("date_of_departure"),
       ),
     ]);
   }

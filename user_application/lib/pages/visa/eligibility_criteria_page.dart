@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:user_application/pages/visa/passport_documents.dart';
 import 'package:user_application/styles/fonts.dart';
+import 'package:user_application/utils/form_handler.dart';
 import 'package:user_application/widgets/Button.dart';
 import 'package:user_application/widgets/back_button.dart';
 import 'package:user_application/widgets/progress.dart';
@@ -15,16 +17,11 @@ class EligibilityCriteriaPage extends StatefulWidget {
 }
 
 class _EligibilityCriteriaPageState extends State<EligibilityCriteriaPage> {
-  String? _nationality;
-  String? _residence;
-  String? _visa_type;
-  String? _visa_category;
-  String? _purpose;
-  String? _sub_visa_type;
-  String? _travel_document;
 
   @override
   Widget build(BuildContext context) {
+    final formHandler = Provider.of<FormHandler>(context);
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
@@ -37,14 +34,11 @@ class _EligibilityCriteriaPageState extends State<EligibilityCriteriaPage> {
             const SizedBox(height: 50),
             _progress(),
             const SizedBox(height: 50),
-            _fields(),
+            _fields(formHandler),
             const SizedBox(height: 50),
             Button(
               text: "Next",
               onTap: () => {
-                print(_nationality),
-                print(_residence),
-                print(_visa_type),
                 Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -94,7 +88,7 @@ class _EligibilityCriteriaPageState extends State<EligibilityCriteriaPage> {
     );
   }
 
-  Column _fields() {
+  Column _fields(FormHandler formHandler) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -103,10 +97,10 @@ class _EligibilityCriteriaPageState extends State<EligibilityCriteriaPage> {
           options: const ["Resr"],
           onChanged: (newValue) {
             setState(() {
-              _nationality = newValue!;
+              formHandler.setFieldValue("nationality", newValue);
             });
           },
-          value: _nationality,
+          value: formHandler.getFieldValue("nationality"),
         ),
         const SizedBox(height: 30),
         SelectField(
@@ -114,10 +108,10 @@ class _EligibilityCriteriaPageState extends State<EligibilityCriteriaPage> {
           options: const ["Resr"],
           onChanged: (newValue) {
             setState(() {
-              _residence = newValue!;
+              formHandler.setFieldValue("residence", newValue);
             });
           },
-          value: _residence,
+          value: formHandler.getFieldValue("residence"),
         ),
         const SizedBox(height: 30),
         SelectField(
@@ -125,10 +119,10 @@ class _EligibilityCriteriaPageState extends State<EligibilityCriteriaPage> {
           options: const ["Resr"],
           onChanged: (newValue) {
             setState(() {
-              _visa_type = newValue!;
+              formHandler.setFieldValue("visa_type", newValue);
             });
           },
-          value: _visa_type,
+          value: formHandler.getFieldValue("visa_type"),
         ),
         const SizedBox(height: 30),
         SelectField(
@@ -136,10 +130,10 @@ class _EligibilityCriteriaPageState extends State<EligibilityCriteriaPage> {
           options: const ["Resr"],
           onChanged: (newValue) {
             setState(() {
-              _visa_category = newValue!;
+              formHandler.setFieldValue("visa_category", newValue);
             });
           },
-          value: _visa_category,
+          value: formHandler.getFieldValue("visa_category"),
         ),
         const SizedBox(height: 30),
         SelectField(
@@ -147,10 +141,10 @@ class _EligibilityCriteriaPageState extends State<EligibilityCriteriaPage> {
           options: const ["Resr"],
           onChanged: (newValue) {
             setState(() {
-              _purpose = newValue!;
+              formHandler.setFieldValue("purpose", newValue);
             });
           },
-          value: _purpose,
+          value: formHandler.getFieldValue("purpose"),
         ),
         const SizedBox(height: 30),
         SelectField(
@@ -158,10 +152,10 @@ class _EligibilityCriteriaPageState extends State<EligibilityCriteriaPage> {
           options: const ["Resr"],
           onChanged: (newValue) {
             setState(() {
-              _sub_visa_type = newValue!;
+              formHandler.setFieldValue("sub_visa_type", newValue);
             });
           },
-          value: _sub_visa_type,
+          value: formHandler.getFieldValue("sub_visa_type"),
         ),
         const SizedBox(height: 30),
         SelectField(
@@ -169,10 +163,10 @@ class _EligibilityCriteriaPageState extends State<EligibilityCriteriaPage> {
           options: const ["Resr"],
           onChanged: (newValue) {
             setState(() {
-              _travel_document = newValue!;
+              formHandler.setFieldValue("travel_document", newValue);
             });
           },
-          value: _travel_document,
+          value: formHandler.getFieldValue("travel_document"),
         ),
       ],
     );

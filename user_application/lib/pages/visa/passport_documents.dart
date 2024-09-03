@@ -1,8 +1,13 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:user_application/pages/visa/passport_details.dart';
 import 'package:user_application/styles/fonts.dart';
+import 'package:user_application/utils/form_handler.dart';
 import 'package:user_application/widgets/Button.dart';
 import 'package:user_application/widgets/back_button.dart';
+import 'package:user_application/widgets/file_picker.dart';
 import 'package:user_application/widgets/progress.dart';
 
 class PassportDocuments extends StatefulWidget {
@@ -13,8 +18,11 @@ class PassportDocuments extends StatefulWidget {
 }
 
 class _PassportDocumentsState extends State<PassportDocuments> {
+
   @override
   Widget build(BuildContext context) {
+    final formHandler = Provider.of<FormHandler>(context);
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
@@ -27,7 +35,7 @@ class _PassportDocumentsState extends State<PassportDocuments> {
             const SizedBox(height: 50),
             _progress(),
             const SizedBox(height: 50),
-            _fields(),
+            _fields(formHandler),
             const SizedBox(height: 50),
             Button(
               text: "Next",
@@ -68,7 +76,7 @@ class _PassportDocumentsState extends State<PassportDocuments> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "Eligibility criteria.",
+          "Documents.",
           style: heading2Style,
         ),
         const SizedBox(height: 15),
@@ -81,10 +89,43 @@ class _PassportDocumentsState extends State<PassportDocuments> {
     );
   }
 
-  Column _fields() {
+  Column _fields(FormHandler formHandler) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: [],
+      children: [
+        FileSelect(
+          title: "Passport Bio page *",
+          maxFileSize: 'Max file size: 2 MB',
+          onFilePicked: (File? file) {
+            if (file != null) {
+              print('File picked: ${file.path}');
+              formHandler.setFile("passport_bio", file);
+            }
+          }
+        ),
+        SizedBox(height: 30),
+        FileSelect(
+            title: "Invitational Letter *",
+            maxFileSize: 'Max file size: 2 MB',
+            onFilePicked: (File? file) {
+              if (file != null) {
+                print('File picked: ${file.path}');
+                formHandler.setFile("invite_letter", file);
+              }
+            }
+        ),
+        SizedBox(height: 30),
+        FileSelect(
+            title: "Additional Documents",
+            maxFileSize: 'Max file size: 2 MB',
+            onFilePicked: (File? file) {
+              if (file != null) {
+                print('File picked: ${file.path}');
+                formHandler.setFile("add_docs", file);
+              }
+            }
+        ),
+      ],
     );
   }
 }

@@ -1,12 +1,14 @@
+import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'package:user_application/pages/test_page.dart';
 import 'package:user_application/pages/visa/additional_details.dart';
 import 'package:user_application/styles/fonts.dart';
+import 'package:user_application/utils/form_handler.dart';
 import 'package:user_application/widgets/Button.dart';
 import 'package:user_application/widgets/back_button.dart';
 import 'package:user_application/widgets/progress.dart';
-import 'package:user_application/widgets/select_field.dart';
 import "package:user_application/widgets/input_field.dart";
 import "package:user_application/widgets/country_picker.dart";
 
@@ -18,15 +20,11 @@ class ContactDetails extends StatefulWidget {
 }
 
 class _ContactDetailsState extends State<ContactDetails> {
-  String? _email;
-  String? _country;
-  // String? _personal_country_code;
-  // String? _personal_phone;
-  // String? _whatsapp_country_code;
-  // String? _whatsapp_phone;
 
   @override
   Widget build(BuildContext context) {
+    final formHandler = Provider.of<FormHandler>(context);
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
@@ -39,7 +37,7 @@ class _ContactDetailsState extends State<ContactDetails> {
             const SizedBox(height: 50),
             _progress(),
             const SizedBox(height: 50),
-            _fields(),
+            _fields(formHandler),
             const SizedBox(height: 50),
             Button(
               text: "Next",
@@ -93,24 +91,81 @@ class _ContactDetailsState extends State<ContactDetails> {
     );
   }
 
-  Column _fields() {
-    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      InputField(
-        label: "Email *",
-        keyboardType: TextInputType.text,
-      ),
-      const SizedBox(height: 30),
-      CountryPicker(),
-      const SizedBox(height: 30),
-      InputField(
-        label: "Call number",
-        keyboardType: TextInputType.number,
-      ),
-      const SizedBox(height: 30),
-      InputField(
-        label: "Whatsapp number",
-        keyboardType: TextInputType.number,
-      ),
-    ]);
+  Column _fields(FormHandler formHandler) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        InputField(
+          label: "Email *",
+          keyboardType: TextInputType.text,
+          onChanged: (newValue) {
+            setState(() {
+              formHandler.setFieldValue("email", newValue);
+            });
+          },
+          initialValue: formHandler.getFieldValue("email"),
+        ),
+        const SizedBox(height: 30),
+        Row(
+          children: [
+            Expanded(
+              flex: 1,
+              child: CountryPicker(
+                onSelect: (Country country) => {
+                  setState(() {
+                    formHandler.setFieldValue("personal_country_code", "+ " + country.phoneCode.toString());
+                  })
+                },
+                title: formHandler.getFieldValue("personal_country_code") ?? "+ 00",
+              ),
+            ),
+            const SizedBox(width: 10),
+            Expanded(
+              flex: 5,
+              child: InputField(
+                label: "Call number",
+                keyboardType: TextInputType.number,
+                onChanged: (newValue) {
+                  setState(() {
+                    formHandler.setFieldValue("phone_number", newValue);
+                  });
+                },
+                initialValue: formHandler.getFieldValue("phone_number"),
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 30),
+        Row(
+          children: [
+            Expanded(
+              flex: 1,
+              child: CountryPicker(
+                onSelect: (Country country) => {
+                  setState(() {
+                    formHandler.setFieldValue("whatsapp_country_code", "+ " + country.phoneCode.toString());
+                  })
+                },
+                title: formHandler.getFieldValue("whatsapp_country_code") ?? "+ 00",
+              ),
+            ),
+            const SizedBox(width: 10),
+            Expanded(
+              flex: 5,
+              child: InputField(
+                label: "Whatsapp number",
+                keyboardType: TextInputType.number,
+                onChanged: (newValue) {
+                  setState(() {
+                    formHandler.setFieldValue("whatsapp_number", newValue);
+                  });
+                },
+                initialValue: formHandler.getFieldValue("whatsapp_number"),
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
   }
 }

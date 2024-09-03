@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:user_application/pages/visa/eligibility_criteria_page.dart';
+import 'package:user_application/utils/form_handler.dart';
 
 void main() {
-  runApp(const MaterialApp(
-    debugShowCheckedModeBanner: false,
-    home: MyApp(),
-  ));
+  runApp(ChangeNotifierProvider(
+      create: (_) => FormHandler(),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: MyApp(),
+  )));
 }
 
 class MyApp extends StatefulWidget {

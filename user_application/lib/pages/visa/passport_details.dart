@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:user_application/pages/visa/contact_details.dart';
 import 'package:user_application/styles/fonts.dart';
+import 'package:user_application/utils/form_handler.dart';
 import 'package:user_application/widgets/Button.dart';
 import 'package:user_application/widgets/back_button.dart';
 import 'package:user_application/widgets/progress.dart';
@@ -15,15 +17,11 @@ class PassportDetails extends StatefulWidget {
 }
 
 class _PassportDetailsState extends State<PassportDetails> {
-  String? _passport_name;
-  String? _passport_number;
-  String? _date_of_birth;
-  // String? _valid_date;
-  // String? _issued_date;
-  String? _gender;
 
   @override
   Widget build(BuildContext context) {
+    final formHandler = Provider.of<FormHandler>(context);
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
@@ -36,14 +34,11 @@ class _PassportDetailsState extends State<PassportDetails> {
             const SizedBox(height: 50),
             _progress(),
             const SizedBox(height: 50),
-            _fields(),
+            _fields(formHandler),
             const SizedBox(height: 50),
             Button(
               text: "Next",
               onTap: () => {
-                print(_passport_name),
-                print(_passport_number),
-                print(_date_of_birth),
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => new ContactDetails()),
@@ -92,33 +87,63 @@ class _PassportDetailsState extends State<PassportDetails> {
     );
   }
 
-  Column _fields() {
+  Column _fields(FormHandler formHandler) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         InputField(
           label: "Passport name *",
           keyboardType: TextInputType.text,
+          onChanged: (newValue) {
+            setState(() {
+              formHandler.setFieldValue("passport_name", newValue);
+            });
+          },
+          initialValue: formHandler.getFieldValue("passport_name"),
         ),
         const SizedBox(height: 30),
         InputField(
           label: "Passport number *",
           keyboardType: TextInputType.number,
+          onChanged: (newValue) {
+            setState(() {
+              formHandler.setFieldValue("passport_number", newValue);
+            });
+          },
+          initialValue: formHandler.getFieldValue("passport_number"),
         ),
         const SizedBox(height: 30),
         InputField(
           label: "Date of birth *",
           keyboardType: TextInputType.datetime,
+          onChanged: (newValue) {
+            setState(() {
+              formHandler.setFieldValue("dob", newValue);
+            });
+          },
+          initialValue: formHandler.getFieldValue("dob"),
         ),
         const SizedBox(height: 30),
         InputField(
           label: "Valid date *",
           keyboardType: TextInputType.datetime,
+          onChanged: (newValue) {
+            setState(() {
+              formHandler.setFieldValue("valid_date", newValue);
+            });
+          },
+          initialValue: formHandler.getFieldValue("valid_date"),
         ),
         const SizedBox(height: 30),
         InputField(
           label: "Issued date *",
           keyboardType: TextInputType.datetime,
+          onChanged: (newValue) {
+            setState(() {
+              formHandler.setFieldValue("issue_date", newValue);
+            });
+          },
+          initialValue: formHandler.getFieldValue("issue_date"),
         ),
         const SizedBox(height: 30),
         SelectField(
@@ -126,9 +151,10 @@ class _PassportDetailsState extends State<PassportDetails> {
           options: ["Male", "Female"],
           onChanged: (newValue) {
             setState(() {
-              _gender = newValue!;
+              formHandler.setFieldValue("gender", newValue);
             });
           },
+          value: formHandler.getFieldValue("gender"),
         ),
         const SizedBox(height: 30),
       ],
