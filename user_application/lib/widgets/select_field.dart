@@ -7,6 +7,7 @@ class SelectField extends StatelessWidget {
   final List<String> options;
   final String? value;
   final void Function(String?) onChanged;
+  final FormFieldValidator<String>? validator;
 
   const SelectField({
     super.key,
@@ -14,6 +15,7 @@ class SelectField extends StatelessWidget {
     required this.options,
     this.value,
     required this.onChanged,
+    this.validator,
   });
 
   @override
@@ -44,6 +46,8 @@ class SelectField extends StatelessWidget {
         );
       }).toList(),
       onChanged: onChanged,
+      dropdownColor: Colors.white,
+      validator: validator,
     );
   }
 }
