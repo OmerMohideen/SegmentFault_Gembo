@@ -17,6 +17,7 @@ class PassportDetails extends StatefulWidget {
 }
 
 class _PassportDetailsState extends State<PassportDetails> {
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -39,10 +40,12 @@ class _PassportDetailsState extends State<PassportDetails> {
             Button(
               text: "Next",
               onTap: () => {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => new ContactDetails()),
-                )
+                if (_formKey.currentState!.validate()) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => new ContactDetails()),
+                  )
+                }
               },
             )
           ],
@@ -87,77 +90,128 @@ class _PassportDetailsState extends State<PassportDetails> {
     );
   }
 
-  Column _fields(FormHandler formHandler) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        InputField(
-          label: "Passport name *",
-          keyboardType: TextInputType.text,
-          onChanged: (newValue) {
-            setState(() {
-              formHandler.setFieldValue("passport_name", newValue);
-            });
-          },
-          initialValue: formHandler.getFieldValue("passport_name"),
-        ),
-        const SizedBox(height: 30),
-        InputField(
-          label: "Passport number *",
-          keyboardType: TextInputType.number,
-          onChanged: (newValue) {
-            setState(() {
-              formHandler.setFieldValue("passport_number", newValue);
-            });
-          },
-          initialValue: formHandler.getFieldValue("passport_number"),
-        ),
-        const SizedBox(height: 30),
-        InputField(
-          label: "Date of birth *",
-          keyboardType: TextInputType.datetime,
-          onChanged: (newValue) {
-            setState(() {
-              formHandler.setFieldValue("dob", newValue);
-            });
-          },
-          initialValue: formHandler.getFieldValue("dob"),
-        ),
-        const SizedBox(height: 30),
-        InputField(
-          label: "Valid date *",
-          keyboardType: TextInputType.datetime,
-          onChanged: (newValue) {
-            setState(() {
-              formHandler.setFieldValue("valid_date", newValue);
-            });
-          },
-          initialValue: formHandler.getFieldValue("valid_date"),
-        ),
-        const SizedBox(height: 30),
-        InputField(
-          label: "Issued date *",
-          keyboardType: TextInputType.datetime,
-          onChanged: (newValue) {
-            setState(() {
-              formHandler.setFieldValue("issue_date", newValue);
-            });
-          },
-          initialValue: formHandler.getFieldValue("issue_date"),
-        ),
-        const SizedBox(height: 30),
-        SelectField(
-          label: "Gender *",
-          options: ["Male", "Female"],
-          onChanged: (newValue) {
-            setState(() {
-              formHandler.setFieldValue("gender", newValue);
-            });
-          },
-          value: formHandler.getFieldValue("gender"),
-        ),
-        const SizedBox(height: 30),
-      ],
+  Form _fields(FormHandler formHandler) {
+    return Form(
+      key: _formKey,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          InputField(
+            label: "Passport name *",
+            keyboardType: TextInputType.text,
+            onChanged: (newValue) {
+              setState(() {
+                formHandler.setFieldValue("passport_name", newValue);
+              });
+            },
+            initialValue: formHandler.getFieldValue("passport_name"),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter your passport name';
+              }
+              return null;
+            },
+          ),
+          const SizedBox(height: 30),
+          InputField(
+            label: "Passport number *",
+            keyboardType: TextInputType.number,
+            onChanged: (newValue) {
+              setState(() {
+                formHandler.setFieldValue("passport_number", newValue);
+              });
+            },
+            initialValue: formHandler.getFieldValue("passport_number"),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter your passport number';
+              }
+              if (!RegExp(r'^[a-zA-Z0-9]+$').hasMatch(value)) {
+                return 'Passport number should be alphanumeric';
+              }
+              return null;
+            },
+          ),
+          const SizedBox(height: 30),
+          InputField(
+            label: "Date of birth *",
+            keyboardType: TextInputType.datetime,
+            onChanged: (newValue) {
+              setState(() {
+                formHandler.setFieldValue("dob", newValue);
+              });
+            },
+            initialValue: formHandler.getFieldValue("dob"),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter your date of birth';
+              }
+              if (!RegExp(r'^\d{2}/\d{2}/\d{4}$').hasMatch(value)) {
+                return 'Please enter a valid date (DD/MM/YYYY)';
+              }
+              return null;
+            },
+          ),
+          const SizedBox(height: 30),
+          InputField(
+            label: "Valid date *",
+            keyboardType: TextInputType.datetime,
+            onChanged: (newValue) {
+              setState(() {
+                formHandler.setFieldValue("valid_date", newValue);
+              });
+            },
+            initialValue: formHandler.getFieldValue("valid_date"),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter the passport\'s valid date';
+              }
+              if (!RegExp(r'^\d{2}/\d{2}/\d{4}$').hasMatch(value)) {
+                return 'Please enter a valid date (DD/MM/YYYY)';
+              }
+              return null;
+            },
+          ),
+          const SizedBox(height: 30),
+          InputField(
+            label: "Issued date *",
+            keyboardType: TextInputType.datetime,
+            onChanged: (newValue) {
+              setState(() {
+                formHandler.setFieldValue("issue_date", newValue);
+              });
+            },
+            initialValue: formHandler.getFieldValue("issue_date"),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter the passport\'s issued date';
+              }
+              if (!RegExp(r'^\d{2}/\d{2}/\d{4}$').hasMatch(value)) {
+                return 'Please enter a valid date (DD/MM/YYYY)';
+              }
+              return null;
+            },
+          ),
+          const SizedBox(height: 30),
+          SelectField(
+            label: "Gender *",
+            options: ["Male", "Female"],
+            onChanged: (newValue) {
+              setState(() {
+                formHandler.setFieldValue("gender", newValue);
+              });
+            },
+            value: formHandler.getFieldValue("gender"),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please select your gender';
+              }
+              return null;
+            },
+          ),
+          const SizedBox(height: 30),
+        ],
+      ),
     );
   }
 }

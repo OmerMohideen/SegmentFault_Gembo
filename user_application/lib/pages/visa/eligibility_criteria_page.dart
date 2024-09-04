@@ -17,6 +17,7 @@ class EligibilityCriteriaPage extends StatefulWidget {
 }
 
 class _EligibilityCriteriaPageState extends State<EligibilityCriteriaPage> {
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -38,12 +39,14 @@ class _EligibilityCriteriaPageState extends State<EligibilityCriteriaPage> {
             const SizedBox(height: 50),
             Button(
               text: "Next",
-              onTap: () => {
-                Navigator.push(
+              onTap: () {
+                if (_formKey.currentState!.validate()) {
+                  Navigator.push(
                   context,
                   MaterialPageRoute(
                       builder: (context) => new PassportDocuments()),
-                )
+                  );
+                }
               },
             )
           ],
@@ -88,8 +91,10 @@ class _EligibilityCriteriaPageState extends State<EligibilityCriteriaPage> {
     );
   }
 
-  Column _fields(FormHandler formHandler) {
-    return Column(
+  Form _fields(FormHandler formHandler) {
+    return Form(
+      key: _formKey,
+      child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SelectField(
@@ -101,6 +106,12 @@ class _EligibilityCriteriaPageState extends State<EligibilityCriteriaPage> {
             });
           },
           value: formHandler.getFieldValue("nationality"),
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Please select your nationality';
+            }
+            return null;
+          },
         ),
         const SizedBox(height: 30),
         SelectField(
@@ -112,6 +123,12 @@ class _EligibilityCriteriaPageState extends State<EligibilityCriteriaPage> {
             });
           },
           value: formHandler.getFieldValue("residence"),
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Please select your residence';
+            }
+            return null;
+          },
         ),
         const SizedBox(height: 30),
         SelectField(
@@ -123,6 +140,12 @@ class _EligibilityCriteriaPageState extends State<EligibilityCriteriaPage> {
             });
           },
           value: formHandler.getFieldValue("visa_type"),
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Please select your visa type';
+            }
+            return null;
+          },
         ),
         const SizedBox(height: 30),
         SelectField(
@@ -134,6 +157,12 @@ class _EligibilityCriteriaPageState extends State<EligibilityCriteriaPage> {
             });
           },
           value: formHandler.getFieldValue("visa_category"),
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Please select your visa category';
+            }
+            return null;
+          },
         ),
         const SizedBox(height: 30),
         SelectField(
@@ -145,6 +174,12 @@ class _EligibilityCriteriaPageState extends State<EligibilityCriteriaPage> {
             });
           },
           value: formHandler.getFieldValue("purpose"),
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Please select your purpose of travel';
+            }
+            return null;
+          },
         ),
         const SizedBox(height: 30),
         SelectField(
@@ -156,6 +191,12 @@ class _EligibilityCriteriaPageState extends State<EligibilityCriteriaPage> {
             });
           },
           value: formHandler.getFieldValue("sub_visa_type"),
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Please select your sub visa type';
+            }
+            return null;
+          },
         ),
         const SizedBox(height: 30),
         SelectField(
@@ -167,8 +208,15 @@ class _EligibilityCriteriaPageState extends State<EligibilityCriteriaPage> {
             });
           },
           value: formHandler.getFieldValue("travel_document"),
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Please select your type of travel document';
+            }
+            return null;
+          },
         ),
       ],
+    ),
     );
   }
 }

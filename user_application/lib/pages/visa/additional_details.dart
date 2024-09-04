@@ -18,6 +18,7 @@ class AdditionalDetails extends StatefulWidget {
 }
 
 class _AdditionalDetailsState extends State<AdditionalDetails> {
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -40,10 +41,12 @@ class _AdditionalDetailsState extends State<AdditionalDetails> {
             Button(
               text: "Next",
               onTap: () => {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => new TestPage()),
-                )
+                if (_formKey.currentState!.validate()) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => new TestPage()),
+                  )
+                }
               },
             )
           ],
@@ -88,51 +91,84 @@ class _AdditionalDetailsState extends State<AdditionalDetails> {
     );
   }
 
-  Column _fields(FormHandler formHandler) {
-    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      InputField(
-        label: "Date of arrival *",
-        keyboardType: TextInputType.datetime,
-        onChanged: (newValue) {
-          setState(() {
-            formHandler.setFieldValue("date_of_arrival", newValue);
-          });
-        },
-        initialValue: formHandler.getFieldValue("date_of_arrival"),
-      ),
-      const SizedBox(height: 30),
-      SelectField(
-        label: "Port entry *",
-        options: ["Colombo"],
-        onChanged: (newValue) {
-          setState(() {
-            formHandler.setFieldValue("port_entry", newValue);
-          });
-        },
-        value: formHandler.getFieldValue("port_entry"),
-      ),
-      const SizedBox(height: 30),
-      InputField(
-        label: "Residential address *",
-        keyboardType: TextInputType.text,
-        onChanged: (newValue) {
-          setState(() {
-            formHandler.setFieldValue("Residential_address", newValue);
-          });
-        },
-        initialValue: formHandler.getFieldValue("Residential_address"),
-      ),
-      const SizedBox(height: 30),
-      InputField(
-        label: "Date of departure *",
-        keyboardType: TextInputType.datetime,
-        onChanged: (newValue) {
-          setState(() {
-            formHandler.setFieldValue("date_of_departure", newValue);
-          });
-        },
-        initialValue: formHandler.getFieldValue("date_of_departure"),
-      ),
-    ]);
+  Form _fields(FormHandler formHandler) {
+    return Form(
+      key: _formKey,
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          InputField(
+            label: "Date of arrival *",
+            keyboardType: TextInputType.datetime,
+            onChanged: (newValue) {
+              setState(() {
+                formHandler.setFieldValue("date_of_arrival", newValue);
+              });
+            },
+            initialValue: formHandler.getFieldValue("date_of_arrival"),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter the date of arrival';
+              }
+              if (!RegExp(r'^\d{2}/\d{2}/\d{4}$').hasMatch(value)) {
+                return 'Please enter a valid date (DD/MM/YYYY)';
+              }
+              return null;
+            },
+          ),
+          const SizedBox(height: 30),
+          SelectField(
+            label: "Port entry *",
+            options: ["Colombo"],
+            onChanged: (newValue) {
+              setState(() {
+                formHandler.setFieldValue("port_entry", newValue);
+              });
+            },
+            value: formHandler.getFieldValue("port_entry"),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please select a port of entry';
+              }
+              return null;
+            },
+          ),
+          const SizedBox(height: 30),
+          InputField(
+            label: "Residential address *",
+            keyboardType: TextInputType.text,
+            onChanged: (newValue) {
+              setState(() {
+                formHandler.setFieldValue("Residential_address", newValue);
+              });
+            },
+            initialValue: formHandler.getFieldValue("Residential_address"),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter your residential address';
+              }
+              return null;
+            },
+          ),
+          const SizedBox(height: 30),
+          InputField(
+            label: "Date of departure *",
+            keyboardType: TextInputType.datetime,
+            onChanged: (newValue) {
+              setState(() {
+                formHandler.setFieldValue("date_of_departure", newValue);
+              });
+            },
+            initialValue: formHandler.getFieldValue("date_of_departure"),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter the date of departure';
+              }
+              if (!RegExp(r'^\d{2}/\d{2}/\d{4}$').hasMatch(value)) {
+                return 'Please enter a valid date (DD/MM/YYYY)';
+              }
+              return null;
+            },
+          ),
+        ],),
+    );
   }
 }
