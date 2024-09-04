@@ -1,8 +1,8 @@
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:user_application/pages/visa/additional_details_page.dart';
 
-import 'package:user_application/pages/visa/additional_details.dart';
 import 'package:user_application/styles/fonts.dart';
 import 'package:user_application/utils/form_handler.dart';
 import 'package:user_application/widgets/Button.dart';
@@ -11,14 +11,14 @@ import 'package:user_application/widgets/progress.dart';
 import "package:user_application/widgets/input_field.dart";
 import "package:user_application/widgets/country_picker.dart";
 
-class ContactDetails extends StatefulWidget {
-  const ContactDetails({super.key});
+class ContactDetailsPage extends StatefulWidget {
+  const ContactDetailsPage({super.key});
 
   @override
-  State<ContactDetails> createState() => _ContactDetailsState();
+  State<ContactDetailsPage> createState() => _ContactDetailsPageState();
 }
 
-class _ContactDetailsState extends State<ContactDetails> {
+class _ContactDetailsPageState extends State<ContactDetailsPage> {
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -46,7 +46,7 @@ class _ContactDetailsState extends State<ContactDetails> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => new AdditionalDetails()),
+                        builder: (context) => new AdditionalDetailsPage()),
                   )
                 }
               },

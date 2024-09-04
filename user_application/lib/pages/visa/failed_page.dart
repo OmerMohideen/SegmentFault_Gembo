@@ -7,10 +7,10 @@ class SubmissionFailedPage extends StatefulWidget {
   const SubmissionFailedPage({super.key});
 
   @override
-  State<SubmissionFailedPage> createState() => _SubmissionFailedPage();
+  State<SubmissionFailedPage> createState() => _SubmissionFailedPageState();
 }
 
-class _SubmissionFailedPage extends State<SubmissionFailedPage> {
+class _SubmissionFailedPageState extends State<SubmissionFailedPage> {
 
   @override
   Widget build(BuildContext context) {

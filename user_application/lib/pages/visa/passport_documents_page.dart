@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:user_application/pages/visa/passport_details.dart';
+import 'package:user_application/pages/visa/passport_details_page.dart';
 import 'package:user_application/styles/fonts.dart';
 import 'package:user_application/utils/form_handler.dart';
 import 'package:user_application/widgets/Button.dart';
@@ -10,14 +10,14 @@ import 'package:user_application/widgets/back_button.dart';
 import 'package:user_application/widgets/file_picker.dart';
 import 'package:user_application/widgets/progress.dart';
 
-class PassportDocuments extends StatefulWidget {
-  const PassportDocuments({super.key});
+class PassportDocumentsPage extends StatefulWidget {
+  const PassportDocumentsPage({super.key});
 
   @override
-  State<PassportDocuments> createState() => _PassportDocumentsState();
+  State<PassportDocumentsPage> createState() => _PassportDocumentsPageState();
 }
 
-class _PassportDocumentsState extends State<PassportDocuments> {
+class _PassportDocumentsPageState extends State<PassportDocumentsPage> {
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +43,7 @@ class _PassportDocumentsState extends State<PassportDocuments> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => new PassportDetails()),
+                      builder: (context) => new PassportDetailsPage()),
                 )
               },
             )

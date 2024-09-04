@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:user_application/pages/visa/contact_details.dart';
+
+import 'package:user_application/services/stripe_service.dart';
 import 'package:user_application/styles/fonts.dart';
 import 'package:user_application/utils/form_handler.dart';
 import 'package:user_application/widgets/Button.dart';
@@ -9,14 +10,14 @@ import 'package:user_application/widgets/progress.dart';
 import 'package:user_application/widgets/select_field.dart';
 import "package:user_application/widgets/input_field.dart";
 
-class PassportDetails extends StatefulWidget {
-  const PassportDetails({super.key});
+class AdditionalDetailsPage extends StatefulWidget {
+  const AdditionalDetailsPage({super.key});
 
   @override
-  State<PassportDetails> createState() => _PassportDetailsState();
+  State<AdditionalDetailsPage> createState() => _AdditionalDetailsPageState();
 }
 
-class _PassportDetailsState extends State<PassportDetails> {
+class _AdditionalDetailsPageState extends State<AdditionalDetailsPage> {
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -38,13 +39,10 @@ class _PassportDetailsState extends State<PassportDetails> {
             _fields(formHandler),
             const SizedBox(height: 50),
             Button(
-              text: "Next",
+              text: "Done",
               onTap: () => {
                 if (_formKey.currentState!.validate()) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => new ContactDetails()),
-                  )
+                  StripeService.instance.makePayment(context)
                 }
               },
             )
@@ -77,13 +75,13 @@ class _PassportDetailsState extends State<PassportDetails> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "Passport Details.",
+          "Additional Details.",
           style: heading2Style,
         ),
         const SizedBox(height: 15),
         const ProgressBar(
           sizeCount: 5,
-          progressCount: 3,
+          progressCount: 5,
           size: 72,
         ),
       ],
@@ -93,98 +91,19 @@ class _PassportDetailsState extends State<PassportDetails> {
   Form _fields(FormHandler formHandler) {
     return Form(
       key: _formKey,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           InputField(
-            label: "Passport name *",
-            keyboardType: TextInputType.text,
-            onChanged: (newValue) {
-              setState(() {
-                formHandler.setFieldValue("passport_name", newValue);
-              });
-            },
-            initialValue: formHandler.getFieldValue("passport_name"),
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Please enter your passport name';
-              }
-              return null;
-            },
-          ),
-          const SizedBox(height: 30),
-          InputField(
-            label: "Passport number *",
-            keyboardType: TextInputType.number,
-            onChanged: (newValue) {
-              setState(() {
-                formHandler.setFieldValue("passport_number", newValue);
-              });
-            },
-            initialValue: formHandler.getFieldValue("passport_number"),
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Please enter your passport number';
-              }
-              if (!RegExp(r'^[a-zA-Z0-9]+$').hasMatch(value)) {
-                return 'Passport number should be alphanumeric';
-              }
-              return null;
-            },
-          ),
-          const SizedBox(height: 30),
-          InputField(
-            label: "Date of birth *",
+            label: "Date of arrival *",
             keyboardType: TextInputType.datetime,
             onChanged: (newValue) {
               setState(() {
-                formHandler.setFieldValue("dob", newValue);
+                formHandler.setFieldValue("date_of_arrival", newValue);
               });
             },
-            initialValue: formHandler.getFieldValue("dob"),
+            initialValue: formHandler.getFieldValue("date_of_arrival"),
             validator: (value) {
               if (value == null || value.isEmpty) {
-                return 'Please enter your date of birth';
-              }
-              if (!RegExp(r'^\d{2}/\d{2}/\d{4}$').hasMatch(value)) {
-                return 'Please enter a valid date (DD/MM/YYYY)';
-              }
-              return null;
-            },
-          ),
-          const SizedBox(height: 30),
-          InputField(
-            label: "Valid date *",
-            keyboardType: TextInputType.datetime,
-            onChanged: (newValue) {
-              setState(() {
-                formHandler.setFieldValue("valid_date", newValue);
-              });
-            },
-            initialValue: formHandler.getFieldValue("valid_date"),
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Please enter the passport\'s valid date';
-              }
-              if (!RegExp(r'^\d{2}/\d{2}/\d{4}$').hasMatch(value)) {
-                return 'Please enter a valid date (DD/MM/YYYY)';
-              }
-              return null;
-            },
-          ),
-          const SizedBox(height: 30),
-          InputField(
-            label: "Issued date *",
-            keyboardType: TextInputType.datetime,
-            onChanged: (newValue) {
-              setState(() {
-                formHandler.setFieldValue("issue_date", newValue);
-              });
-            },
-            initialValue: formHandler.getFieldValue("issue_date"),
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Please enter the passport\'s issued date';
+                return 'Please enter the date of arrival';
               }
               if (!RegExp(r'^\d{2}/\d{2}/\d{4}$').hasMatch(value)) {
                 return 'Please enter a valid date (DD/MM/YYYY)';
@@ -194,24 +113,59 @@ class _PassportDetailsState extends State<PassportDetails> {
           ),
           const SizedBox(height: 30),
           SelectField(
-            label: "Gender *",
-            options: ["Male", "Female"],
+            label: "Port entry *",
+            options: ["Colombo"],
             onChanged: (newValue) {
               setState(() {
-                formHandler.setFieldValue("gender", newValue);
+                formHandler.setFieldValue("port_entry", newValue);
               });
             },
-            value: formHandler.getFieldValue("gender"),
+            value: formHandler.getFieldValue("port_entry"),
             validator: (value) {
               if (value == null || value.isEmpty) {
-                return 'Please select your gender';
+                return 'Please select a port of entry';
               }
               return null;
             },
           ),
           const SizedBox(height: 30),
-        ],
-      ),
+          InputField(
+            label: "Residential address *",
+            keyboardType: TextInputType.text,
+            onChanged: (newValue) {
+              setState(() {
+                formHandler.setFieldValue("Residential_address", newValue);
+              });
+            },
+            initialValue: formHandler.getFieldValue("Residential_address"),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter your residential address';
+              }
+              return null;
+            },
+          ),
+          const SizedBox(height: 30),
+          InputField(
+            label: "Date of departure *",
+            keyboardType: TextInputType.datetime,
+            onChanged: (newValue) {
+              setState(() {
+                formHandler.setFieldValue("date_of_departure", newValue);
+              });
+            },
+            initialValue: formHandler.getFieldValue("date_of_departure"),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter the date of departure';
+              }
+              if (!RegExp(r'^\d{2}/\d{2}/\d{4}$').hasMatch(value)) {
+                return 'Please enter a valid date (DD/MM/YYYY)';
+              }
+              return null;
+            },
+          ),
+        ],),
     );
   }
 }
