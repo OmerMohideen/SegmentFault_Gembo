@@ -83,9 +83,9 @@ class _EligibilityCriteriaPageState extends State<EligibilityCriteriaPage> {
         ),
         const SizedBox(height: 15),
         const ProgressBar(
-          sizeCount: 6,
+          sizeCount: 5,
           progressCount: 1,
-          size: 60,
+          size: 72,
         ),
       ],
     );

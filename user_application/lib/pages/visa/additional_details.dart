@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:user_application/pages/test_page.dart';
+import 'package:user_application/services/stripe_service.dart';
 import 'package:user_application/styles/fonts.dart';
 import 'package:user_application/utils/form_handler.dart';
 import 'package:user_application/widgets/Button.dart';
@@ -39,13 +39,10 @@ class _AdditionalDetailsState extends State<AdditionalDetails> {
             _fields(formHandler),
             const SizedBox(height: 50),
             Button(
-              text: "Next",
+              text: "Done",
               onTap: () => {
                 if (_formKey.currentState!.validate()) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => new TestPage()),
-                  )
+                  StripeService.instance.makePayment(context)
                 }
               },
             )
@@ -83,9 +80,9 @@ class _AdditionalDetailsState extends State<AdditionalDetails> {
         ),
         const SizedBox(height: 15),
         const ProgressBar(
-          sizeCount: 6,
+          sizeCount: 5,
           progressCount: 5,
-          size: 60,
+          size: 72,
         ),
       ],
     );

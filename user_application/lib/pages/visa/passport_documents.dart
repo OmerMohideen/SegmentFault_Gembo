@@ -81,9 +81,9 @@ class _PassportDocumentsState extends State<PassportDocuments> {
         ),
         const SizedBox(height: 15),
         const ProgressBar(
-          sizeCount: 6,
+          sizeCount: 5,
           progressCount: 2,
-          size: 60,
+          size: 72,
         ),
       ],
     );

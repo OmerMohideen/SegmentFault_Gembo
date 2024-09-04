@@ -85,9 +85,9 @@ class _ContactDetailsState extends State<ContactDetails> {
         ),
         const SizedBox(height: 15),
         const ProgressBar(
-          sizeCount: 6,
+          sizeCount: 5,
           progressCount: 4,
-          size: 60,
+          size: 72,
         ),
       ],
     );

@@ -82,9 +82,9 @@ class _PassportDetailsState extends State<PassportDetails> {
         ),
         const SizedBox(height: 15),
         const ProgressBar(
-          sizeCount: 6,
+          sizeCount: 5,
           progressCount: 3,
-          size: 60,
+          size: 72,
         ),
       ],
     );
