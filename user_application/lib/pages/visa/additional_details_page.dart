@@ -42,7 +42,7 @@ class _AdditionalDetailsPageState extends State<AdditionalDetailsPage> {
               text: "Done",
               onTap: () => {
                 if (_formKey.currentState!.validate()) {
-                  StripeService.instance.makePayment(context)
+                  StripeService.instance.makePayment(context, formHandler)
                 }
               },
             )
@@ -134,10 +134,10 @@ class _AdditionalDetailsPageState extends State<AdditionalDetailsPage> {
             keyboardType: TextInputType.text,
             onChanged: (newValue) {
               setState(() {
-                formHandler.setFieldValue("Residential_address", newValue);
+                formHandler.setFieldValue("residential_address", newValue);
               });
             },
-            initialValue: formHandler.getFieldValue("Residential_address"),
+            initialValue: formHandler.getFieldValue("residential_address"),
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return 'Please enter your residential address';

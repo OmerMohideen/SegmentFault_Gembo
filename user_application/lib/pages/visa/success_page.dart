@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:user_application/pages/visa/eligibility_criteria_page.dart';
+import 'package:user_application/pages/visa/status_page.dart';
 import 'package:user_application/styles/fonts.dart';
 import 'package:user_application/widgets/Button.dart';
 
@@ -50,7 +51,7 @@ class _SubmissionSuccessPageState extends State<SubmissionSuccessPage> {
                                   // Add functionality to navigate to status page
                                   Navigator.push(
                                     context,
-                                    MaterialPageRoute(builder: (context) => EligibilityCriteriaPage()),
+                                    MaterialPageRoute(builder: (context) => StatusPage()),
                                   );
                                 },
                             ),

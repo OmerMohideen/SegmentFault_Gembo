@@ -1,16 +1,21 @@
+import 'dart:ffi';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
+import 'package:provider/provider.dart';
 import 'package:user_application/pages/visa/failed_page.dart';
 import 'package:user_application/pages/visa/success_page.dart';
+import 'package:user_application/services/database_service.dart';
+import 'package:user_application/utils/form_handler.dart';
 
 class StripeService {
   StripeService._();
 
   static final StripeService instance = StripeService._();
 
-  Future<void> makePayment(BuildContext context) async {
+  Future<void> makePayment(BuildContext context, FormHandler formHandler) async {
     try {
       String? clientSecret = await _createPaymentIntent(10000, "lkr");
       if (clientSecret == null) return;
@@ -19,6 +24,9 @@ class StripeService {
         merchantDisplayName: "Gembo"
       ));
       await Stripe.instance.presentPaymentSheet();
+
+      _storeData(formHandler);
+
       await Navigator.push(
         context,
         MaterialPageRoute(
@@ -30,6 +38,16 @@ class StripeService {
         MaterialPageRoute(
             builder: (context) => new SubmissionFailedPage()),
       );
+    }
+  }
+  
+  Future<void> _storeData(FormHandler formHandler) async {
+    try {
+      DatabaseService databaseService = DatabaseService();
+
+      await databaseService.saveFormData(formHandler);
+    } catch(e) {
+      print(e);
     }
   }
 
