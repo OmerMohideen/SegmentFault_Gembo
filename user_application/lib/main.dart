@@ -6,7 +6,6 @@ import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:provider/provider.dart';
 import 'package:user_application/firebase_options.dart';
 import 'package:user_application/pages/home_page.dart';
-import 'package:user_application/pages/visa/eligibility_criteria_page.dart';
 import 'package:user_application/pages/welcome_page.dart';
 import 'package:user_application/utils/form_handler.dart';
 
