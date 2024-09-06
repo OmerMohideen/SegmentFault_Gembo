@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:user_application/pages/home_page.dart';
 import 'package:user_application/pages/visa/eligibility_criteria_page.dart';
 import 'package:user_application/styles/fonts.dart';
 import 'package:user_application/widgets/Button.dart';
@@ -11,10 +12,8 @@ class SubmissionFailedPage extends StatefulWidget {
 }
 
 class _SubmissionFailedPageState extends State<SubmissionFailedPage> {
-
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       backgroundColor: Colors.white,
       body: Padding(
@@ -28,7 +27,10 @@ class _SubmissionFailedPageState extends State<SubmissionFailedPage> {
                   children: [
                     Image.asset("assets/images/sad_mascot.png"),
                     const SizedBox(height: 35),
-                    Text("Application Failed", style: heading1Style,)
+                    Text(
+                      "Application Failed",
+                      style: heading1Style,
+                    )
                   ],
                 ),
               ),
@@ -50,6 +52,14 @@ class _SubmissionFailedPageState extends State<SubmissionFailedPage> {
                 Button(
                   text: "Go to homepage",
                   secondary: true,
+                  onTap: () => {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => HomePage(),
+                      ),
+                    )
+                  },
                 ),
               ],
             ),

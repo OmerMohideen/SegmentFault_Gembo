@@ -31,3 +31,34 @@ class DripBackButton extends StatelessWidget {
     );
   }
 }
+
+class DripCloseButton extends StatelessWidget {
+  final void Function()? onTap;
+
+  const DripCloseButton({super.key, this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Stack(
+        alignment: Alignment.center,
+        children: <Widget>[
+          SvgPicture.asset(
+            'assets/icons/drip_white_button_base.svg',
+            width: 40.0,
+            height: 40.0,
+          ),
+          Positioned(
+            top: 12,
+            child: SvgPicture.asset(
+              'assets/icons/close.svg',
+              width: 8.5,
+              height: 12.5,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}

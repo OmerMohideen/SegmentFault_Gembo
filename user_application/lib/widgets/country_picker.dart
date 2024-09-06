@@ -6,11 +6,8 @@ class CountryPicker extends StatelessWidget {
   final Function(Country) onSelect;
   final String title;
 
-  const CountryPicker({
-    Key? key,
-    required this.onSelect,
-    required this.title
-  }) : super(key: key);
+  const CountryPicker({Key? key, required this.onSelect, required this.title})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

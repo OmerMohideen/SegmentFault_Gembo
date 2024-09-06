@@ -40,12 +40,14 @@ class _PassportDetailsPageState extends State<PassportDetailsPage> {
             Button(
               text: "Next",
               onTap: () => {
-                if (_formKey.currentState!.validate()) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => new ContactDetailsPage()),
-                  )
-                }
+                if (_formKey.currentState!.validate())
+                  {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => new ContactDetailsPage()),
+                    )
+                  }
               },
             )
           ],

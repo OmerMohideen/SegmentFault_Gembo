@@ -41,9 +41,8 @@ class _AdditionalDetailsPageState extends State<AdditionalDetailsPage> {
             Button(
               text: "Done",
               onTap: () => {
-                if (_formKey.currentState!.validate()) {
-                  StripeService.instance.makePayment(context, formHandler)
-                }
+                if (_formKey.currentState!.validate())
+                  {StripeService.instance.makePayment(context, formHandler)}
               },
             )
           ],
@@ -91,7 +90,9 @@ class _AdditionalDetailsPageState extends State<AdditionalDetailsPage> {
   Form _fields(FormHandler formHandler) {
     return Form(
       key: _formKey,
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
           InputField(
             label: "Date of arrival *",
             keyboardType: TextInputType.datetime,
@@ -165,7 +166,8 @@ class _AdditionalDetailsPageState extends State<AdditionalDetailsPage> {
               return null;
             },
           ),
-        ],),
+        ],
+      ),
     );
   }
 }

@@ -42,9 +42,9 @@ class _EligibilityCriteriaPageState extends State<EligibilityCriteriaPage> {
               onTap: () {
                 if (_formKey.currentState!.validate()) {
                   Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => new PassportDocumentsPage()),
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => new PassportDocumentsPage()),
                   );
                 }
               },
@@ -95,128 +95,128 @@ class _EligibilityCriteriaPageState extends State<EligibilityCriteriaPage> {
     return Form(
       key: _formKey,
       child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        SelectField(
-          label: "Nationality *",
-          options: const ["Resr"],
-          onChanged: (newValue) {
-            setState(() {
-              formHandler.setFieldValue("nationality", newValue);
-            });
-          },
-          value: formHandler.getFieldValue("nationality"),
-          validator: (value) {
-            if (value == null || value.isEmpty) {
-              return 'Please select your nationality';
-            }
-            return null;
-          },
-        ),
-        const SizedBox(height: 30),
-        SelectField(
-          label: "Country of residence *",
-          options: const ["Resr"],
-          onChanged: (newValue) {
-            setState(() {
-              formHandler.setFieldValue("residence", newValue);
-            });
-          },
-          value: formHandler.getFieldValue("residence"),
-          validator: (value) {
-            if (value == null || value.isEmpty) {
-              return 'Please select your residence';
-            }
-            return null;
-          },
-        ),
-        const SizedBox(height: 30),
-        SelectField(
-          label: "Visa-type *",
-          options: const ["Resr"],
-          onChanged: (newValue) {
-            setState(() {
-              formHandler.setFieldValue("visa_type", newValue);
-            });
-          },
-          value: formHandler.getFieldValue("visa_type"),
-          validator: (value) {
-            if (value == null || value.isEmpty) {
-              return 'Please select your visa type';
-            }
-            return null;
-          },
-        ),
-        const SizedBox(height: 30),
-        SelectField(
-          label: "Visa-Category *",
-          options: const ["Resr"],
-          onChanged: (newValue) {
-            setState(() {
-              formHandler.setFieldValue("visa_category", newValue);
-            });
-          },
-          value: formHandler.getFieldValue("visa_category"),
-          validator: (value) {
-            if (value == null || value.isEmpty) {
-              return 'Please select your visa category';
-            }
-            return null;
-          },
-        ),
-        const SizedBox(height: 30),
-        SelectField(
-          label: "Purpose of travel *",
-          options: const ["Resr"],
-          onChanged: (newValue) {
-            setState(() {
-              formHandler.setFieldValue("purpose", newValue);
-            });
-          },
-          value: formHandler.getFieldValue("purpose"),
-          validator: (value) {
-            if (value == null || value.isEmpty) {
-              return 'Please select your purpose of travel';
-            }
-            return null;
-          },
-        ),
-        const SizedBox(height: 30),
-        SelectField(
-          label: "Sub-Visa type *",
-          options: const ["Resr"],
-          onChanged: (newValue) {
-            setState(() {
-              formHandler.setFieldValue("sub_visa_type", newValue);
-            });
-          },
-          value: formHandler.getFieldValue("sub_visa_type"),
-          validator: (value) {
-            if (value == null || value.isEmpty) {
-              return 'Please select your sub visa type';
-            }
-            return null;
-          },
-        ),
-        const SizedBox(height: 30),
-        SelectField(
-          label: "Type of travel Document *",
-          options: const ["Resr"],
-          onChanged: (newValue) {
-            setState(() {
-              formHandler.setFieldValue("travel_document", newValue);
-            });
-          },
-          value: formHandler.getFieldValue("travel_document"),
-          validator: (value) {
-            if (value == null || value.isEmpty) {
-              return 'Please select your type of travel document';
-            }
-            return null;
-          },
-        ),
-      ],
-    ),
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SelectField(
+            label: "Nationality *",
+            options: const ["Resr"],
+            onChanged: (newValue) {
+              setState(() {
+                formHandler.setFieldValue("nationality", newValue);
+              });
+            },
+            value: formHandler.getFieldValue("nationality"),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please select your nationality';
+              }
+              return null;
+            },
+          ),
+          const SizedBox(height: 30),
+          SelectField(
+            label: "Country of residence *",
+            options: const ["Resr"],
+            onChanged: (newValue) {
+              setState(() {
+                formHandler.setFieldValue("residence", newValue);
+              });
+            },
+            value: formHandler.getFieldValue("residence"),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please select your residence';
+              }
+              return null;
+            },
+          ),
+          const SizedBox(height: 30),
+          SelectField(
+            label: "Visa-type *",
+            options: const ["Resr"],
+            onChanged: (newValue) {
+              setState(() {
+                formHandler.setFieldValue("visa_type", newValue);
+              });
+            },
+            value: formHandler.getFieldValue("visa_type"),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please select your visa type';
+              }
+              return null;
+            },
+          ),
+          const SizedBox(height: 30),
+          SelectField(
+            label: "Visa-Category *",
+            options: const ["Resr"],
+            onChanged: (newValue) {
+              setState(() {
+                formHandler.setFieldValue("visa_category", newValue);
+              });
+            },
+            value: formHandler.getFieldValue("visa_category"),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please select your visa category';
+              }
+              return null;
+            },
+          ),
+          const SizedBox(height: 30),
+          SelectField(
+            label: "Purpose of travel *",
+            options: const ["Resr"],
+            onChanged: (newValue) {
+              setState(() {
+                formHandler.setFieldValue("purpose", newValue);
+              });
+            },
+            value: formHandler.getFieldValue("purpose"),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please select your purpose of travel';
+              }
+              return null;
+            },
+          ),
+          const SizedBox(height: 30),
+          SelectField(
+            label: "Sub-Visa type *",
+            options: const ["Resr"],
+            onChanged: (newValue) {
+              setState(() {
+                formHandler.setFieldValue("sub_visa_type", newValue);
+              });
+            },
+            value: formHandler.getFieldValue("sub_visa_type"),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please select your sub visa type';
+              }
+              return null;
+            },
+          ),
+          const SizedBox(height: 30),
+          SelectField(
+            label: "Type of travel Document *",
+            options: const ["Resr"],
+            onChanged: (newValue) {
+              setState(() {
+                formHandler.setFieldValue("travel_document", newValue);
+              });
+            },
+            value: formHandler.getFieldValue("travel_document"),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please select your type of travel document';
+              }
+              return null;
+            },
+          ),
+        ],
+      ),
     );
   }
 }

@@ -18,7 +18,6 @@ class PassportDocumentsPage extends StatefulWidget {
 }
 
 class _PassportDocumentsPageState extends State<PassportDocumentsPage> {
-
   @override
   Widget build(BuildContext context) {
     final formHandler = Provider.of<FormHandler>(context);
@@ -94,15 +93,14 @@ class _PassportDocumentsPageState extends State<PassportDocumentsPage> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         FileSelect(
-          title: "Passport Bio page *",
-          maxFileSize: 'Max file size: 2 MB',
-          onFilePicked: (File? file) {
-            if (file != null) {
-              print('File picked: ${file.path}');
-              formHandler.setFile("passport_bio", file);
-            }
-          }
-        ),
+            title: "Passport Bio page *",
+            maxFileSize: 'Max file size: 2 MB',
+            onFilePicked: (File? file) {
+              if (file != null) {
+                print('File picked: ${file.path}');
+                formHandler.setFile("passport_bio", file);
+              }
+            }),
         SizedBox(height: 30),
         FileSelect(
             title: "Invitational Letter *",
@@ -112,8 +110,7 @@ class _PassportDocumentsPageState extends State<PassportDocumentsPage> {
                 print('File picked: ${file.path}');
                 formHandler.setFile("invite_letter", file);
               }
-            }
-        ),
+            }),
         SizedBox(height: 30),
         FileSelect(
             title: "Additional Documents",
@@ -123,8 +120,7 @@ class _PassportDocumentsPageState extends State<PassportDocumentsPage> {
                 print('File picked: ${file.path}');
                 formHandler.setFile("add_docs", file);
               }
-            }
-        ),
+            }),
       ],
     );
   }

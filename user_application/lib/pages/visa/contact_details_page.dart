@@ -42,13 +42,14 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
             Button(
               text: "Next",
               onTap: () => {
-              if (_formKey.currentState!.validate()) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => new AdditionalDetailsPage()),
-                  )
-                }
+                if (_formKey.currentState!.validate())
+                  {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => new AdditionalDetailsPage()),
+                    )
+                  }
               },
             )
           ],
@@ -95,109 +96,113 @@ class _ContactDetailsPageState extends State<ContactDetailsPage> {
 
   Form _fields(FormHandler formHandler) {
     return Form(
-        key: _formKey,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            InputField(
-              label: "Email *",
-              keyboardType: TextInputType.text,
-              onChanged: (newValue) {
-                setState(() {
-                  formHandler.setFieldValue("email", newValue);
-                });
-              },
-              initialValue: formHandler.getFieldValue("email"),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter your email';
-                }
-                if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
-                  return 'Please enter a valid email address';
-                }
-                return null;
-              },
-            ),
-            const SizedBox(height: 30),
-            Row(
-              children: [
-                Expanded(
-                  flex: 1,
-                  child: CountryPicker(
-                    onSelect: (Country country) => {
-                      setState(() {
-                        formHandler.setFieldValue("personal_country_code", "+ " + country.phoneCode.toString());
-                      })
-                    },
-                    title: formHandler.getFieldValue("personal_country_code") ?? "+ 00",
-                  ),
+      key: _formKey,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          InputField(
+            label: "Email *",
+            keyboardType: TextInputType.text,
+            onChanged: (newValue) {
+              setState(() {
+                formHandler.setFieldValue("email", newValue);
+              });
+            },
+            initialValue: formHandler.getFieldValue("email"),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter your email';
+              }
+              if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
+                return 'Please enter a valid email address';
+              }
+              return null;
+            },
+          ),
+          const SizedBox(height: 30),
+          Row(
+            children: [
+              Expanded(
+                flex: 1,
+                child: CountryPicker(
+                  onSelect: (Country country) => {
+                    setState(() {
+                      formHandler.setFieldValue("personal_country_code",
+                          "+ " + country.phoneCode.toString());
+                    })
+                  },
+                  title: formHandler.getFieldValue("personal_country_code") ??
+                      "+ 00",
                 ),
-                const SizedBox(width: 10),
-                Expanded(
-                  flex: 5,
-                  child: InputField(
-                    label: "Call number",
-                    keyboardType: TextInputType.number,
-                    onChanged: (newValue) {
-                      setState(() {
-                        formHandler.setFieldValue("phone_number", newValue);
-                      });
-                    },
-                    initialValue: formHandler.getFieldValue("phone_number"),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter your phone number';
-                      }
-                      if (!RegExp(r'^[0-9]+$').hasMatch(value)) {
-                        return 'Phone number should contain digits only';
-                      }
-                      return null;
-                    },
-                  ),
+              ),
+              const SizedBox(width: 10),
+              Expanded(
+                flex: 5,
+                child: InputField(
+                  label: "Call number",
+                  keyboardType: TextInputType.number,
+                  onChanged: (newValue) {
+                    setState(() {
+                      formHandler.setFieldValue("phone_number", newValue);
+                    });
+                  },
+                  initialValue: formHandler.getFieldValue("phone_number"),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter your phone number';
+                    }
+                    if (!RegExp(r'^[0-9]+$').hasMatch(value)) {
+                      return 'Phone number should contain digits only';
+                    }
+                    return null;
+                  },
                 ),
-              ],
-            ),
-            const SizedBox(height: 30),
-            Row(
-              children: [
-                Expanded(
-                  flex: 1,
-                  child: CountryPicker(
-                    onSelect: (Country country) => {
-                      setState(() {
-                        formHandler.setFieldValue("whatsapp_country_code", "+ " + country.phoneCode.toString());
-                      })
-                    },
-                    title: formHandler.getFieldValue("whatsapp_country_code") ?? "+ 00",
-                  ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 30),
+          Row(
+            children: [
+              Expanded(
+                flex: 1,
+                child: CountryPicker(
+                  onSelect: (Country country) => {
+                    setState(() {
+                      formHandler.setFieldValue("whatsapp_country_code",
+                          "+ " + country.phoneCode.toString());
+                    })
+                  },
+                  title: formHandler.getFieldValue("whatsapp_country_code") ??
+                      "+ 00",
                 ),
-                const SizedBox(width: 10),
-                Expanded(
-                  flex: 5,
-                  child: InputField(
-                    label: "Whatsapp number",
-                    keyboardType: TextInputType.number,
-                    onChanged: (newValue) {
-                      setState(() {
-                        formHandler.setFieldValue("whatsapp_number", newValue);
-                      });
-                    },
-                    initialValue: formHandler.getFieldValue("whatsapp_number"),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter your WhatsApp number';
-                      }
-                      if (!RegExp(r'^[0-9]+$').hasMatch(value)) {
-                        return 'WhatsApp number should contain digits only';
-                      }
-                      return null;
-                    },
-                  ),
+              ),
+              const SizedBox(width: 10),
+              Expanded(
+                flex: 5,
+                child: InputField(
+                  label: "Whatsapp number",
+                  keyboardType: TextInputType.number,
+                  onChanged: (newValue) {
+                    setState(() {
+                      formHandler.setFieldValue("whatsapp_number", newValue);
+                    });
+                  },
+                  initialValue: formHandler.getFieldValue("whatsapp_number"),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter your WhatsApp number';
+                    }
+                    if (!RegExp(r'^[0-9]+$').hasMatch(value)) {
+                      return 'WhatsApp number should contain digits only';
+                    }
+                    return null;
+                  },
                 ),
-              ],
-            ),
-          ],
-        ),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }

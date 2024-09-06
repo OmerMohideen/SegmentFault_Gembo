@@ -26,7 +26,7 @@ class DatabaseService {
     }
   }
 
-  Future<void> _createVisaStatus(String applicationId) async {
+  Future<void> _createVisaStatus(String applicationId, String userId) async {
     final initialStatus = VisaStatus(
       statusCode: 0,
       statusMessage: "Application Submitted",
@@ -35,15 +35,27 @@ class DatabaseService {
       timestamp: null,
     );
 
-    DocumentReference statusRef = _firestore.collection("visa_status").doc(applicationId);
-
+    DocumentReference statusRef = _firestore
+        .collection("users")
+        .doc(userId)
+        .collection("visa_applications")
+        .doc(applicationId)
+        .collection("visa_status")
+        .doc(applicationId);
 
     await statusRef.collection("history").add(initialStatus.toJson());
-
   }
 
-  Future<VisaStatus?> getCurrentVisaStatus(String applicationId) async {
-    DocumentSnapshot snapshot = await _firestore.collection("visa_status").doc(applicationId).get();
+  Future<VisaStatus?> getCurrentVisaStatus(
+      String applicationId, String userId) async {
+    DocumentSnapshot snapshot = await _firestore
+        .collection("users")
+        .doc(userId)
+        .collection("visa_applications")
+        .doc(applicationId)
+        .collection("visa_status")
+        .doc(applicationId)
+        .get();
 
     if (snapshot.exists) {
       return VisaStatus.fromJson(snapshot.data() as Map<String, dynamic>);
@@ -52,18 +64,25 @@ class DatabaseService {
     return null;
   }
 
-  Future<List<VisaStatus>> getVisaStatusHistory(String applicationId) async {
+  Future<List<VisaStatus>> getVisaStatusHistory(
+      String applicationId, String userId) async {
     QuerySnapshot snapshot = await _firestore
+        .collection("users")
+        .doc(userId)
+        .collection("visa_applications")
+        .doc(applicationId)
         .collection("visa_status")
         .doc(applicationId)
         .collection("history")
         .orderBy("timestamp", descending: true)
         .get();
 
-    return snapshot.docs.map((doc) => VisaStatus.fromJson(doc.data() as Map<String, dynamic>)).toList();
+    return snapshot.docs
+        .map((doc) => VisaStatus.fromJson(doc.data() as Map<String, dynamic>))
+        .toList();
   }
 
-  Future<void> saveFormData(FormHandler formHandler) async {
+  Future<void> saveFormData(FormHandler formHandler, String userId) async {
     final formFields = formHandler.getAllFields();
     final formFiles = formHandler.getAllFiles();
 
@@ -79,9 +98,14 @@ class DatabaseService {
 
     final formModel = FormModel(fields: formFields, fileUrls: fileUrls);
 
-    DocumentReference docRef = await _firestore.collection("visa_applications").add(formModel.toJson());
+    DocumentReference docRef = await _firestore
+        .collection("users")
+        .doc(userId)
+        .collection("visa_applications")
+        .add(formModel.toJson());
+
     String documentId = docRef.id;
 
-    await _createVisaStatus(documentId);
+    await _createVisaStatus(documentId, userId);
   }
 }

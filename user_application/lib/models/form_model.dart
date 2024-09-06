@@ -11,8 +11,9 @@ class FormModel {
     };
   }
 
-  FormModel.fromJson(Map<String, dynamic> data) : this(
-    fields: Map<String, String?>.from(data['fields']),
-    fileUrls: Map<String, String?>.from(data['fileUrls']),
-  );
+  FormModel.fromJson(Map<String, dynamic> data)
+      : this(
+          fields: Map<String, String?>.from(data['fields']),
+          fileUrls: Map<String, String?>.from(data['fileUrls']),
+        );
 }
