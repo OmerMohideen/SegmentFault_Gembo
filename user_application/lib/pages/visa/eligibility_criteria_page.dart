@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:country_picker/country_picker.dart';
+import "package:user_application/widgets/country_picker.dart";
+
 import 'package:provider/provider.dart';
 import 'package:user_application/pages/visa/passport_documents_page.dart';
 import 'package:user_application/styles/fonts.dart';
@@ -97,43 +100,37 @@ class _EligibilityCriteriaPageState extends State<EligibilityCriteriaPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SelectField(
-            label: "Nationality *",
-            options: const ["Resr"],
-            onChanged: (newValue) {
+          CountryPicker(
+            showPhoneCode: false,
+            onSelect: (Country country) => {
               setState(() {
-                formHandler.setFieldValue("nationality", newValue);
-              });
+                formHandler.setFieldValue("nationality", "" + country.name);
+              })
             },
-            value: formHandler.getFieldValue("nationality"),
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Please select your nationality';
-              }
-              return null;
-            },
+            title: formHandler.getFieldValue("nationality") ?? "Nationality",
           ),
           const SizedBox(height: 30),
-          SelectField(
-            label: "Country of residence *",
-            options: const ["Resr"],
-            onChanged: (newValue) {
+          CountryPicker(
+            showPhoneCode: false,
+            onSelect: (Country country) => {
               setState(() {
-                formHandler.setFieldValue("residence", newValue);
-              });
+                formHandler.setFieldValue(
+                    "country_of_residence", "" + country.name);
+              })
             },
-            value: formHandler.getFieldValue("residence"),
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Please select your residence';
-              }
-              return null;
-            },
+            title: formHandler.getFieldValue("country_of_residence") ??
+                "Country of residence",
           ),
           const SizedBox(height: 30),
           SelectField(
             label: "Visa-type *",
-            options: const ["Resr"],
+            options: const [
+              "Diplomatic visa",
+              "Tourist visa",
+              "Medical visa",
+              "Student visa",
+              "Work visa",
+            ],
             onChanged: (newValue) {
               setState(() {
                 formHandler.setFieldValue("visa_type", newValue);
@@ -150,7 +147,16 @@ class _EligibilityCriteriaPageState extends State<EligibilityCriteriaPage> {
           const SizedBox(height: 30),
           SelectField(
             label: "Visa-Category *",
-            options: const ["Resr"],
+            options: const [
+              "Business visa",
+              "Student visa",
+              "Transit visa",
+              "Diplomat visa",
+              "Journalist visa",
+              "Conference visa",
+              "E visa",
+              "Medical visa",
+            ],
             onChanged: (newValue) {
               setState(() {
                 formHandler.setFieldValue("visa_category", newValue);
@@ -167,7 +173,13 @@ class _EligibilityCriteriaPageState extends State<EligibilityCriteriaPage> {
           const SizedBox(height: 30),
           SelectField(
             label: "Purpose of travel *",
-            options: const ["Resr"],
+            options: const [
+              "For leisure",
+              "For Work",
+              "For Studies",
+              "For Diplomacy",
+              "Other Reasons",
+            ],
             onChanged: (newValue) {
               setState(() {
                 formHandler.setFieldValue("purpose", newValue);
@@ -184,7 +196,13 @@ class _EligibilityCriteriaPageState extends State<EligibilityCriteriaPage> {
           const SizedBox(height: 30),
           SelectField(
             label: "Sub-Visa type *",
-            options: const ["Resr"],
+            options: const [
+              "30 days one time",
+              "30 day multiple",
+              "6 months one time",
+              "6 months multiple",
+              "1 year multiple",
+            ],
             onChanged: (newValue) {
               setState(() {
                 formHandler.setFieldValue("sub_visa_type", newValue);
@@ -201,7 +219,7 @@ class _EligibilityCriteriaPageState extends State<EligibilityCriteriaPage> {
           const SizedBox(height: 30),
           SelectField(
             label: "Type of travel Document *",
-            options: const ["Resr"],
+            options: const ["Passport"],
             onChanged: (newValue) {
               setState(() {
                 formHandler.setFieldValue("travel_document", newValue);

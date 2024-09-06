@@ -5,8 +5,13 @@ import 'package:user_application/styles/fonts.dart';
 class CountryPicker extends StatelessWidget {
   final Function(Country) onSelect;
   final String title;
+  final bool showPhoneCode;
 
-  const CountryPicker({Key? key, required this.onSelect, required this.title})
+  const CountryPicker(
+      {Key? key,
+      required this.onSelect,
+      required this.title,
+      this.showPhoneCode = true})
       : super(key: key);
 
   @override
@@ -14,13 +19,13 @@ class CountryPicker extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         showCountryPicker(
-          showPhoneCode: true,
+          showPhoneCode: showPhoneCode,
           context: context,
           onSelect: onSelect,
         );
       },
       child: Container(
-        alignment: Alignment.topCenter,
+        alignment: Alignment.topLeft,
         height: 38,
         margin: EdgeInsets.only(top: 18),
         decoration: BoxDecoration(

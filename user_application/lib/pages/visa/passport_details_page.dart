@@ -197,7 +197,10 @@ class _PassportDetailsPageState extends State<PassportDetailsPage> {
           const SizedBox(height: 30),
           SelectField(
             label: "Gender *",
-            options: ["Male", "Female"],
+            options: [
+              "Male",
+              "Female",
+            ],
             onChanged: (newValue) {
               setState(() {
                 formHandler.setFieldValue("gender", newValue);

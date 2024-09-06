@@ -115,7 +115,14 @@ class _AdditionalDetailsPageState extends State<AdditionalDetailsPage> {
           const SizedBox(height: 30),
           SelectField(
             label: "Port entry *",
-            options: ["Colombo"],
+            options: [
+              "Colombo port",
+              "Galle port",
+              "Trincomalee port",
+              "Hambantota international port",
+              "Kankesanthurai port",
+              "Oluvil port",
+            ],
             onChanged: (newValue) {
               setState(() {
                 formHandler.setFieldValue("port_entry", newValue);
